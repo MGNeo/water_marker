@@ -25,7 +25,7 @@ void Service::Run(const std::string& directory)
         task->SetLogoMark(logoMark);
         task->SetInputFileName(pi.path().string());
         task->SetOutputFileName(directory + "/output/" + pi.path().filename().string());
-        task->Run();        // Debug.
+        task->Run();// Debug.
         tasks.push_front(std::move(task));
       }
     }
