@@ -11,6 +11,8 @@ public:
 
   Task();
 
+  std::string GetInputFileName() const;
+
   void SetWaterMark(const Mark& waterMark);
   void SetLogoMark(const Mark& logoMark);
 

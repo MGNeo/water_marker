@@ -6,7 +6,7 @@ class Service
 {
 public:
 
-  static void Run(const std::string& directory);
+  static void Run();
 
 private:
 

@@ -1,36 +1,27 @@
 #include <iostream>
+#include <Windows.h>
 
+#include "logger.hpp"
 #include "service.hpp"
 
-int main()
+int main(int argc, char** argv)
 {
-  // Нужна многопоточная обработка.
-  
-  /*
-  std::filesystem::directory_iterator di("C:/Users/MGNeo/Desktop/water_marker/water_marker");
-
-  for (auto e : di)
-  {
-    if (e.is_directory() == false)
-    {
-      std::cout << e.path().filename() << std::endl;
-    }
-  }
-
-  */
-
   try
   {
-    Service::Run("C:/Users/MGNeo/Desktop/water_marker/water_marker");
+    setlocale(LC_ALL, "rus");
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+
+    Service::Run();
   }
   catch (const std::exception& e)
   {
-    std::cout << "main(), std::exception was caught: " << e.what() << std::endl;
+    Logger::Log("main(), std::exception was caught: " + std::string(e.what()));
   }
   catch (...)
   {
-    std::cout << "main(), unknown exception was caught." << std::endl;
+    Logger::Log("main(), unknown exception was caught.");
   }
+  (void)getchar();
   return 0;
 }
-

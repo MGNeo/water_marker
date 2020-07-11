@@ -1,4 +1,5 @@
 #include "task.hpp"
+#include "logger.hpp"
 
 Task::Task()
   :
@@ -6,6 +7,12 @@ Task::Task()
   LogoMark{ nullptr }
 {
 }
+
+std::string Task::GetInputFileName() const
+{
+  return InputFileName;
+}
+
 
 void Task::SetWaterMark(const Mark& waterMark)
 {
@@ -29,24 +36,33 @@ void Task::SetOutputFileName(const std::string& outputFileName)
 
 void Task::Run()
 {
-  if (WaterMark == nullptr)
+  try
   {
-    throw std::invalid_argument("Task::Run(), WaterMark == nullptr.");
-  }
+    if (WaterMark == nullptr)
+    {
+      throw std::invalid_argument("Task::Run(), WaterMark == nullptr.");
+    }
 
-  if (LogoMark == nullptr)
+    if (LogoMark == nullptr)
+    {
+      throw std::invalid_argument("Task::Run(), LogoMark == nullptr.");
+    }
+
+    Image Image_;
+
+    Image_.LoadFromFile(InputFileName);
+
+    DrawWaterMark(Image_);
+    DrawLogoMark(Image_);
+
+    Image_.SaveToFile(OutputFileName);
+  }
+  catch (...)
   {
-    throw std::invalid_argument("Task::Run(), LogoMark == nullptr.");
+    Logger::Log("Task::Run(), " + GetInputFileName() + " could not be processed.");
+    throw;
   }
-
-  Image Image_;
-
-  Image_.LoadFromFile(InputFileName);
-
-  DrawWaterMark(Image_);
-  DrawLogoMark(Image_);
-
-  Image_.SaveToFile(OutputFileName);
+  Logger::Log("Task::Run(), " + GetInputFileName() + " was successfully processed.");
 }
 
 void Task::DrawWaterMark(Image& image) const
