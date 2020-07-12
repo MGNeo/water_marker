@@ -17,8 +17,8 @@ void Service::Run()
   {
     TaskPool taskPool;
 
-    Mark waterMark(std::filesystem::current_path().string() + "\\marks\\water_mark.jpg");
-    Mark logoMark(std::filesystem::current_path().string() + "\\marks\\logo_mark.jpg");
+    Mark waterMark(std::filesystem::current_path().string() + "\\marks\\water_mark.bmp");
+    Mark logoMark(std::filesystem::current_path().string() + "\\marks\\logo_mark.bmp");
 
     std::filesystem::directory_iterator di{ std::filesystem::current_path().string() + "\\input" };
     for (auto& pi : di)

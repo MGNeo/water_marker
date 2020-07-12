@@ -75,13 +75,14 @@ void Task::DrawWaterMark(Image& image) const
       {
         for (size_t my = 0; my < WaterMark->GetHeight(); ++my)
         {
-          const size_t ix = px - WaterMark->GetWidth() / 2 + mx;
-          const size_t iy = py - WaterMark->GetHeight() / 2 + my;
+          const size_t ix = px + mx;
+          const size_t iy = py + my;
           if ((ix < image.GetWidth()) && (iy < image.GetHeight()))
           {
             const sf::Color color = image.GetPixel(ix, iy) + WaterMark->GetPixel(mx, my);
             image.SetPixel(ix, iy, color);
           }
+
         }
       }
     }
@@ -94,12 +95,15 @@ void Task::DrawLogoMark(Image& image) const
   {
     for (size_t my = 0; my < LogoMark->GetHeight(); ++my)
     {
-      const size_t ix = image.GetWidth() - LogoMark->GetWidth() + mx;
-      const size_t iy = image.GetHeight() - LogoMark->GetHeight() + my;
-      if ((ix < image.GetWidth()) && (iy < image.GetHeight()))
+      if (LogoMark->GetPixel(mx, my) != sf::Color::Blue)
       {
-        const sf::Color color = LogoMark->GetPixel(mx, my);
-        image.SetPixel(ix, iy, color);
+        const size_t ix = image.GetWidth() - LogoMark->GetWidth() + mx;
+        const size_t iy = image.GetHeight() - LogoMark->GetHeight() + my;
+        if ((ix < image.GetWidth()) && (iy < image.GetHeight()))
+        {
+          const sf::Color color = LogoMark->GetPixel(mx, my);
+          image.SetPixel(ix, iy, color);
+        }
       }
     }
   }
